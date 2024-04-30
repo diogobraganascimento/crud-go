@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"log"
 
+	"github.com/diogobraganascimento/crud-go/src/configuration/database/mongodb"
 	"github.com/diogobraganascimento/crud-go/src/configuration/logger"
 	"github.com/diogobraganascimento/crud-go/src/controller/routes"
 	"github.com/gin-gonic/gin"
@@ -17,9 +19,19 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
+	database, err := mongodb.NewMongoDBConnection(context.Background())
+	if err != nil {
+		log.Fatalf(
+			"Error trying to connect to database, error=%s \n",
+			err.Error())
+		return
+	}
+
+	userController := initDependencies(database)
+
 	router := gin.Default()
 
-	routes.InitRoutes(&router.RouterGroup)
+	routes.InitRoutes(&router.RouterGroup, userController)
 
 	if err := router.Run(":8080"); err != nil {
 		log.Fatal(err)
