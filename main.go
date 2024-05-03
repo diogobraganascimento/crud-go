@@ -17,6 +17,7 @@ func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
+		return
 	}
 
 	database, err := mongodb.NewMongoDBConnection(context.Background())
@@ -30,7 +31,7 @@ func main() {
 	userController := initDependencies(database)
 
 	router := gin.Default()
-
+	gin.SetMode(gin.ReleaseMode)
 	routes.InitRoutes(&router.RouterGroup, userController)
 
 	if err := router.Run(":8080"); err != nil {
