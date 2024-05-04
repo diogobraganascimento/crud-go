@@ -71,7 +71,7 @@ func (uc *userControllerInterface) FindUserByEmail(c *gin.Context) {
 		return
 	}
 
-	userDomain, err := uc.service.FindUserByIDServices(userEmail)
+	userDomain, err := uc.service.FindUserByEmailServices(userEmail)
 	if err != nil {
 		logger.Error("Error trying to call findUserByEmail services",
 			err,
