@@ -20,7 +20,7 @@ type UserDomainService interface {
 	CreateUserServices(model.UserDomainInterface) (
 		model.UserDomainInterface, *rest_err.RestErr)
 
-	FindUserByIDService(
+	FindUserByIDServices(
 		id string,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 	FindUserByEmailServices(
