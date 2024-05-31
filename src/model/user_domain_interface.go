@@ -3,6 +3,8 @@ package model
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/diogobraganascimento/crud-go/src/configuration/rest_err"
 )
 
 type UserDomainInterface interface {
@@ -17,6 +19,7 @@ type UserDomainInterface interface {
 	GetJSONValue() (string, error)
 
 	EncryptPassword()
+	GenerateToken() (string, *rest_err.RestErr)
 }
 
 func NewUserDomain(
